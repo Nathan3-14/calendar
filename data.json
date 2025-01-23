@@ -1,0 +1,26 @@
+{
+    "exams": {
+        "01/01": [
+            {"name": "English Literature Paper 1", "tags": ["english", "gcse", "am"]},
+            {"name": "Maths Paper 2", "tags": ["maths", "gcse", "pm"]}
+        ],
+        "02/01": [
+            {"name": "English Literature Paper 2", "tags": ["english", "gcse", "am"]},
+            {"name": "English Language Paper 1", "tags": ["english", "gcse", "pm"]}
+        ],
+        "03/01": [
+            {"name": "Triple Science Biology Paper 1", "tags": ["biology", "triple-science", "gcse", "am"]},
+            {"name": "Combined Science Biology Paper 1", "tags": ["biology", "combined-science", "gcse", "am"]},
+            {"name": "German Writing", "tags": ["german", "gcse", "pm"]}
+        ],
+        "04/01": [
+            {"name": "Triple Science Chemistry Paper 1", "tags": ["chemistry", "triple-science", "gcse", "am"]},
+            {"name": "Combined Science Chemistry Paper 1", "tags": ["chemistry", "combined-science", "gcse", "am"]},
+            {"name": "Triple Science Phyiscs Paper 2", "tags": ["phyiscs", "triple-science", "gcse", "pm"]},
+            {"name": "Combined Science Phyiscs Paper 2", "tags": ["phyiscs", "combined-science", "gcse", "pm"]}
+        ],
+        "05/01": [
+            {"name": "English Language Paper 2", "tags": ["english", "gcse", "pm"]}
+        ]
+    }
+}
