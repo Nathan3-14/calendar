@@ -15,19 +15,7 @@ class Day:
                 return
     
     def get_matching_exams(self, tags: List[str], force_exact: bool=False) -> List[Exam]:
-        #TODO Replace with code from am and pm TODO#
-        return []
-    
-    def am(self, as_str: bool=False) -> List[Exam] | str:
-        matching = [exam for exam in self.exams if exam.match_tag(["am"])]
-        if as_str:
-            return "\n".join([exam.name for exam in matching])
-        return matching
-    
-    def pm(self, as_str: bool=False) -> List[Exam] | str:
-        matching = [exam for exam in self.exams if exam.match_tag(["pm"])]
-        if as_str:
-            return "\n".join([exam.name for exam in matching])
+        matching = [exam for exam in self.exams if exam.match_tags(tags, force_exact=force_exact)]
         return matching
     
     def __str__(self) -> str:
@@ -37,19 +25,20 @@ data = BetterJson("data.json")
 days = []
 week = ["01/01", "02/01", "03/01", "04/01", "05/01"]
 
+week_table = Table(title=f"{week[0]} -> {week[-1]}", show_lines=True)
+am, pm = [], []
+week_table.add_column()
+
 for date in week:
-    days.append(Day(data.get(f"exams.{date}"), date))
+    current_day = Day(data.get(f"exams.{date}"), date)
 
-#TODO Combine with above TODO#
-temp_table = Table(title=f"{week[0]} -> {week[-1]}", show_lines=True)
-am = []
-pm = []
-temp_table.add_column()
-for index, date in enumerate(week):
-    am.append(days[index].am(as_str=True))
-    pm.append(days[index].pm(as_str=True))
-    temp_table.add_column(date)
-temp_table.add_row("AM", *am)
-temp_table.add_row("PM", *pm)
+    days.append(current_day)
+    
+    am.append("\n".join([exam.name for exam in current_day.get_matching_exams(["am"])]))
+    pm.append("\n".join([exam.name for exam in current_day.get_matching_exams(["pm"])]))
+    week_table.add_column(date)
+    
+week_table.add_row("AM", *am)
+week_table.add_row("PM", *pm)
 
-print(temp_table)
+print(week_table)
