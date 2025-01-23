@@ -20,7 +20,7 @@ class BetterJson:
         else:
             print(f"Err: json_path or _dict must be set to a value")
     
-    def get(self, path: str) -> Any:
+    def get(self, path: str, show_errors: bool=True) -> Any:
         current = self.data.copy()
         for location in path.split("."):
             try:
@@ -29,15 +29,17 @@ class BetterJson:
                 elif type(current) == dict:
                     current = current[location]
                 else:
-                    print(f"Err: Type of {current} is invalid, needs to be dict or list.")
+                    if show_errors:
+                        print(f"Err: Type of {current} is invalid, needs to be dict or list.")
                     return ""
             except KeyError:
-                if type(current) == dict:
-                    print(f"Err: Invalid key '{location}', not in ({', '.join(list(current.keys()))})")
-                elif type(current) == list:
-                    print(f"Err: Invalid index '{location}' not in list {', '.join(current)}")
-                else:
-                    print(f"Err: {current} is not valid type, cannot index")
+                if show_errors:
+                    if type(current) == dict:
+                        print(f"Err: Invalid key '{location}', not in ({', '.join(list(current.keys()))})")
+                    elif type(current) == list:
+                        print(f"Err: Invalid index '{location}' not in list {', '.join(current)}")
+                    else:
+                        print(f"Err: {current} is not valid type, cannot index")
                 return ""
 
         return current
