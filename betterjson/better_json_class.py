@@ -32,7 +32,12 @@ class BetterJson:
                     print(f"Err: Type of {current} is invalid, needs to be dict or list.")
                     return ""
             except KeyError:
-                print(f"Err: Invalid key '{location}', not in ({', '.join(list(current.keys()))})")
+                if type(current) == dict:
+                    print(f"Err: Invalid key '{location}', not in ({', '.join(list(current.keys()))})")
+                elif type(current) == list:
+                    print(f"Err: Invalid index '{location}' not in list {', '.join(current)}")
+                else:
+                    print(f"Err: {current} is not valid type, cannot index")
                 return ""
 
         return current
