@@ -21,24 +21,28 @@ class Day:
     def __str__(self) -> str:
         return "# " + ", ".join([exam.name for exam in self.exams]) + " #"
 
-data = BetterJson("data.json")
-days = []
-week = ["01/01", "02/01", "03/01", "04/01", "05/01"]
 
-week_table = Table(title=f"{week[0]} -> {week[-1]}", show_lines=True)
-am, pm = [], []
-week_table.add_column()
+def get_week(week: List[str], data: BetterJson) -> Table:
+    # days = []
+    week_table = Table(title=f"{week[0]} -> {week[-1]}", show_lines=True)
+    am, pm = [], []
+    week_table.add_column()
 
-for date in week:
-    current_day = Day(data.get(f"exams.{date}"), date)
+    for date in week:
+        current_day = Day(data.get(f"exams.{date}"), date)
 
-    days.append(current_day)
-    
-    am.append("\n".join([exam.name for exam in current_day.get_matching_exams(["am"])]))
-    pm.append("\n".join([exam.name for exam in current_day.get_matching_exams(["pm"])]))
-    week_table.add_column(date)
-    
-week_table.add_row("AM", *am)
-week_table.add_row("PM", *pm)
+        # days.append(current_day)
+        
+        am.append("\n".join([exam.name for exam in current_day.get_matching_exams(["am"])]))
+        pm.append("\n".join([exam.name for exam in current_day.get_matching_exams(["pm"])]))
+        week_table.add_column(date)
+        
+    week_table.add_row("AM", *am)
+    week_table.add_row("PM", *pm)
 
-print(week_table)
+    return week_table
+
+test_data = BetterJson("data.json")
+exam_data = BetterJson("exams.json")
+
+print(get_week(["10/02", "11/02", "12/02", "13/02", "14/02"], exam_data))
