@@ -103,5 +103,8 @@
                 "tags": ["geography", "pm"]
             }
         ]
+    },
+    "users": {
+        "Nathan": ["english", "maths", "triple science", "geography", "german", "computer science", "further maths"]
     }
 }

@@ -12,6 +12,8 @@ class Exam:
                 self.name.replace(tag.lower(), f"[blue]{tag.capitalize()}[/blue]") #TODO FIX!
     
     def match_tags(self, tags: List[str], force_exact: bool=False) -> bool:
+        if tags == []:
+            return True
         for tag in tags:
             if force_exact:
                 if tag not in self.tags:
