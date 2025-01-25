@@ -58,7 +58,7 @@ class ExamInteractable:
         return (am, pm) if raw else week_table
 
     def get_user(self, user_name: str, week: List[str]) -> Tuple[ExamList, ExamList]:
-        return self.get_week(week, [self.exam_data.get(f"users.{user_name.lower()}")], raw=True) #type:ignore
+        return self.get_week(week, [self.exam_data.get(f"users.{user_name.lower()}")]) #type:ignore
 
 i_exam = ExamInteractable(BetterJson("exams.json"))
 
