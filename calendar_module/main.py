@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Tuple
-from betterjson import BetterJson
-from exams import Exam
-from rich.table import Table
-from rich import print
+from .betterjson import BetterJson
+from .exams import Exam
+from .rich.table import Table
+from .rich import print
 
 class ExamList:
     def __init__(self, exams: List[Exam], date: str) -> None:
@@ -58,7 +58,7 @@ class ExamInteractable:
         return (am, pm) if raw else week_table
 
     def get_user(self, user_name: str, week: List[str]) -> Tuple[ExamList, ExamList]:
-        return self.get_week(week, [self.exam_data.get(f"users.{user_name.lower()}")]) #type:ignore
+        return self.get_week(week, [self.exam_data.get(f"users.{user_name.lower()}")], raw=True) #type:ignore
 
 if __name__ == "__main__":
     i_exam = ExamInteractable(BetterJson("exams.json"))

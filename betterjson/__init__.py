@@ -1,1 +1,0 @@
-from .better_json_class import BetterJson

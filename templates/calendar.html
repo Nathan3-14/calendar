@@ -1,0 +1,30 @@
+<h1>Exam Timetable for {{dates[0]}} -> {{dates[-1]}}</h1>
+<h3>{{name}}</h3>
+
+<div class="week">
+    {% for day in week %}
+    <div class="day">
+        <ul class="am">
+            {% for exam in day[0] %}
+            <li>exam.name</li>
+            {% endfor %}
+        </ul>
+        <ul class="pm">
+            {% for exam in day.pm %}
+            <li>exam.name</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .week {
+        display: grid;
+        background-color: red;
+    }
+    .day {
+        background-color: blue;
+    }
+</style>
+
