@@ -16,5 +16,5 @@ def exams(name):
         "calendar.html",
         name=name,
         dates=first_week,
-        days=exam_list
+        week=exam_list
     )
