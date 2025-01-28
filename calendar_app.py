@@ -11,10 +11,11 @@ def index():
 @app.route("/exams/<name>/")
 def exams(name):
     first_week = ["10/02", "11/02", "12/02", "13/02", "14/02"]
-    exam_list = interactable.get_user(name, first_week)
+    second_week = ["24/02", "25/02", "26/02", "27/02", "28/02"]
+    users_weeks = [interactable.get_user(name, week) for week in [first_week, second_week]]
     return render_template(
         "calendar.html",
         name=name,
         dates=first_week,
-        week=exam_list
+        week_list=users_weeks
     )

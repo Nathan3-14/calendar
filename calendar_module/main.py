@@ -1,6 +1,10 @@
 from typing import Any, Dict, List, Tuple
-from .betterjson import BetterJson
-from .exams import Exam
+try:
+    from .betterjson import BetterJson
+    from .exams import Exam
+except:
+    from betterjson import BetterJson
+    from exams import Exam
 try:
     from .rich.table import Table #type:ignore
     from .rich import print #type:ignore
@@ -12,6 +16,10 @@ class ExamList:
     def __init__(self, exams: List[Exam], date: str) -> None:
         self.exams = exams
         self.date = date
+    
+    def init(self) -> None:
+        self.am = self.get_matching_exams(["am"])
+        self.pm = self.get_matching_exams(["pm"])
     
     def get_matching_exams(self, tags: List[str], force_exact: bool=False) -> "ExamList":
         matching = ExamList([exam for exam in self.exams if exam.match_tags(tags, force_exact=force_exact)], self.date)
@@ -33,6 +41,7 @@ def ExamListConstructor(exams: List[Dict[str,str|List[str]]], date: str) -> Exam
         except:
             print("Err: Could not create exam object, check json data")
             break
+    temp_examlist.init()
     return temp_examlist
 
 class ExamInteractable:
@@ -48,12 +57,15 @@ class ExamInteractable:
 
         for date in week:
             current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date).get_matching_exams(tag_list)
+            current_day.init()
 
             days.append(current_day)
-            am = current_day.get_matching_exams(["am"])
+            am = current_day.get_matching_exams(["pm"])
             pm = current_day.get_matching_exams(["pm"])
             am_display.append("\n".join([exam.name for exam in am]))
             pm_display.append("\n".join([exam.name for exam in pm]))
+                
+            
             week_table.add_column(date)
             
         week_table.add_row("AM", *am_display)
@@ -62,9 +74,11 @@ class ExamInteractable:
         return days if raw else week_table
 
     def get_user(self, user_name: str, week: List[str]) -> Tuple[ExamList, ExamList]:
-        return self.get_week(week, [self.exam_data.get(f"users.{user_name.lower()}")], raw=True) #type:ignore
+        # print(self.exam_data.get(f"users.{user_name.lower()}"))
+        return self.get_week(week, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
 
 if __name__ == "__main__":
     i_exam = ExamInteractable(BetterJson("exams.json"))
-    print(i_exam.get_user("Nathan", ["10/02", "11/02", "12/02", "13/02", "14/02"]))
+    for examlist in i_exam.get_user("Nathan", ["10/02", "11/02", "12/02", "13/02", "14/02"]):
+        print(examlist)
 

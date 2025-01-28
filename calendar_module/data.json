@@ -1,62 +1,110 @@
 {
     "exams": {
-        "01/01": [
+        "10/02": [
             {
                 "name": "English Literature Paper 1",
-                "tags": ["english", "gcse", "am"]
+                "tags": ["english", "literature", "am"]
             },
             {
-                "name": "Maths Paper 2",
-                "tags": ["maths", "gcse", "pm"]
+                "name": "Combined Science Biology Paper 2",
+                "tags": ["combined science", "biology", "pm"]
+            },
+            {
+                "name": "Triple Science Biology Paper 2",
+                "tags": ["triple science", "biology", "pm"]
             }
         ],
-        "02/01": [
+        "11/02": [
             {
-                "name": "English Literature Paper 2",
-                "tags": ["english", "gcse", "am"]
-            },
-            {
-                "name": "English Language Paper 1",
-                "tags": ["english", "gcse", "pm"]
-            }
-        ],
-        "03/01": [
-            {
-                "name": "Triple Science Biology Paper 1",
-                "tags": ["biology", "triple science", "gcse", "am"]
-            },
-            {
-                "name": "Combined Science Biology Paper 1",
-                "tags": ["biology", "combined science", "gcse", "am"]
+                "name": "Maths Paper 1",
+                "tags": ["maths", "am"]
             },
             {
                 "name": "German Writing",
-                "tags": ["german", "gcse", "pm"]
+                "tags": ["german", "writing", "pm"]
             }
         ],
-        "04/01": [
+        "12/02": [
             {
-                "name": "Triple Science Chemistry Paper 1",
-                "tags": ["chemistry", "triple science", "gcse", "am"]
+                "name": "Combined Science Chemistry Paper 2",
+                "tags": ["combined science", "chemistry", "am"]
             },
             {
-                "name": "Combined Science Chemistry Paper 1",
-                "tags": ["chemistry", "combined science", "gcse", "am"]
+                "name": "Triple Science Chemistry Paper 2",
+                "tags": ["triple science", "chemistry", "am"]
             },
             {
-                "name": "Triple Science Phyiscs Paper 2",
-                "tags": ["phyiscs", "triple science", "gcse", "pm"]
+                "name": "History Paper 2",
+                "tags": ["history", "pm"]
             },
             {
-                "name": "Combined Science Phyiscs Paper 2",
-                "tags": ["phyiscs", "combined science", "gcse", "pm"]
+                "name": "Geography Paper 1",
+                "tags": ["geography", "pm"]
             }
         ],
-        "05/01": [
+        "13/02": [
+            {
+                "name": "English Language Paper 1",
+                "tags": ["english", "language", "am"]
+            },
+            {
+                "name": "Maths Paper 2",
+                "tags": ["maths", "pm"]
+            }
+        ],
+        "14/02": [
+            {
+                "name": "Computer Science Paper 1",
+                "tags": ["computer science", "am"]
+            }
+        ],
+    
+        "24/02": [
+            {
+                "name": "German Reading",
+                "tags": ["german", "reading", "am"]
+            },
+            {
+                "name": "German Listening",
+                "tags": ["german", "listening", "am"]
+            }
+        ],
+        "25/02": [
             {
                 "name": "English Language Paper 2",
-                "tags": ["english", "gcse", "pm"]
+                "tags": ["english", "language", "am"]
+            }
+        ],
+        "26/02": [
+            {
+                "name": "Maths Paper 3",
+                "tags": ["maths", "am"]
+            },
+            {
+                "name": "Combined Science Physics Paper 2",
+                "tags": ["combined science", "physics", "pm"]
+            },
+            {
+                "name": "Triple Science Physics Paper 2",
+                "tags": ["triple science", "physics", "pm"]
+            }
+        ],
+        "27/02": [
+            {
+                "name": "Music Component 3",
+                "tags": ["music", "am"]
+            },
+            {
+                "name": "History Paper 3",
+                "tags": ["history", "pm"]
+            },
+            {
+                "name": "Geography Paper 2 (A and B)",
+                "tags": ["geography", "pm"]
             }
         ]
+    },
+    "users": {
+        "nathan": ["english", "maths", "triple science", "geography", "german", "computer science", "further maths"]
     }
 }

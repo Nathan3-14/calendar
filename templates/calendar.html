@@ -1,31 +1,58 @@
 <h1>Exam Timetable for {{dates[0]}} -> {{dates[-1]}}</h1>
 <h3>{{name}}</h3>
 
-<div class="week">
-    {% for day in week %}
-    <div class="day">
-        <ul class="am">
-            {% for exam in day.get_matching_exams(["am"]) %}
-            <li>exam.name</li>
-            {% endfor %}
-        </ul>
-        <ul class="pm">
-            {% for exam in day.get_matching_exams(["pm"]) %}
-            <li>exam.name</li>
-            {% endfor %}
-        </ul>
+{% for week in week_list %}
+    <div class="week" style="grid-template-columns: repeat({{ week|length }}, 1fr);">
+        {% for day in week %}
+        <div class="day">
+            <h2>{{day.date}}</h2>
+            <div class="am">
+                {% for exam in day.am %}
+                <h3>{{exam.name}}</h3>
+                {% endfor %}
+            </div>
+            <div class="pm">
+                {% for exam in day.pm %}
+                <h3>{{exam.name}}</h3>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+{% endfor %}
+
 
 <style>
+    body {
+        mix-blend-mode:exclusion;
+        /* mix-blend-mode: difference; */
+        color: white;
+        font-family: 'Courier New', Courier, monospace;
+        /* background-image: url("https://picsum.photos/2060/1080"); */
+        background-image: url({{ url_for('static', filename='images/trees1.jpg') }});
+        /* background-image: url({{ url_for('static', filename='images/mountain2.jpg') }}); */
+    }
+    h1 {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
+    }
     .week {
         display: grid;
-        background-color: red;
-        grid-template-columns: repeat({{ week|length }}, 1fr);
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+
+        height: 250px;
+        width: 90vw;
     }
     .day {
-        background-color: blue;
+        text-align: center;
+        border-radius: 10px;
+        transition: scale 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        background-color: black;
+    }
+    .day:hover {
+        backdrop-filter: blur(100px);
+        scale: 1.1;
+        background-color: #000050;
     }
 </style>
 
