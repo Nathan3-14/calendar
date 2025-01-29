@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Exam Calendar {% endblock %}
+{% block styles %}{% endblock %}
+{% block content %}
+<h1>User Create Select</h1>
+<h3>{{name}}</h3>
+<form action="/user/create/{{name}}/" method="post">
+    {% for subject in available_subjects %}
+    <input type="checkbox" id="{{subject}}" name="subjects" value="{{subject|capitalize}}">
+    <label for="{{subject}}"> {{subject|capitalize}}</label><br>
+    {% endfor %}
+    <br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

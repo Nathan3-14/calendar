@@ -1,0 +1,11 @@
+body {
+    mix-blend-mode:exclusion;
+    /* mix-blend-mode: difference; */
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    /* background-image: url("https://picsum.photos/2060/1080"); */
+    /* background-image: url({{ url_for('static', filename='images/mountain2.jpg') }}); */
+}
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif !important;
+}

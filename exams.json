@@ -105,6 +105,8 @@
         ]
     },
     "users": {
-        "nathan": ["english", "maths", "triple science", "geography", "german", "computer science", "further maths"]
-    }
+        "nathan": ["english", "maths", "triple science", "geography", "german", "computer science", "further maths"],
+        "all": []
+    },
+    "subjects": ["english", "literature", "language", "combined science", "triple science", "biology", "chemistry", "physics", "maths", "history", "geography", "computer science", "german", "reading", "listening", "music"]
 }

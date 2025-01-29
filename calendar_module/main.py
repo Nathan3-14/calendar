@@ -48,15 +48,18 @@ class ExamInteractable:
     def __init__(self, data: BetterJson) -> None:
         self.exam_data = data
     
-    def get_week(self, week: List[str], tag_list: List[str]=[], raw: bool=False) -> Table | Tuple[ExamList, ExamList]:
+    def get_exams_on_dates(self, date_list: List[str], tag_list: List[str]=[], raw: bool=False) -> Table | Tuple[ExamList, ExamList]:
         days = []
-        week_table = Table(title=f"{week[0]} -> {week[-1]}", show_lines=True)
+        week_table = Table(title=f"{date_list[0]} -> {date_list[-1]}", show_lines=True)
         am, pm = ExamList([], "99/99"), ExamList([], "99/99")
         am_display, pm_display = [], []
         week_table.add_column()
 
-        for date in week:
-            current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date).get_matching_exams(tag_list)
+        for date in date_list:
+            if tag_list == []:
+                current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date)
+            else:
+                current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date).get_matching_exams(tag_list)
             current_day.init()
 
             days.append(current_day)
@@ -73,9 +76,9 @@ class ExamInteractable:
 
         return days if raw else week_table
 
-    def get_user(self, user_name: str, week: List[str]) -> Tuple[ExamList, ExamList]:
+    def get_user(self, user_name: str, date_list: List[str]) -> Tuple[ExamList, ExamList]:
         # print(self.exam_data.get(f"users.{user_name.lower()}"))
-        return self.get_week(week, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
+        return self.get_exams_on_dates(date_list, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
 
 if __name__ == "__main__":
     i_exam = ExamInteractable(BetterJson("exams.json"))

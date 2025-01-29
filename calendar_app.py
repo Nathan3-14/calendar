@@ -1,21 +1,47 @@
-from flask import Flask, render_template
+import json
+from flask import Flask, redirect, render_template, request
 import calendar_module as cm
 
 app = Flask(__name__)
-interactable = cm.ExamInteractable(cm.BetterJson("exams.json"))
+exam_better_json = cm.BetterJson("exams.json")
+interactable = cm.ExamInteractable(exam_better_json)
 
 @app.route("/")
 def index():
-    return render_template("welcome.html")
+    return render_template(
+        "welcome.html",
+        image_address=""
+    )
+
+@app.route("/user/")
+def user():
+    return render_template(
+        "user.html",
+        image_address="images/mountain1.jpg"
+    )
+
+@app.route("/user/create/<name>/")
+def create_user(name, methods=('GET', 'POST')):
+    if request.method == "POST":
+        print("posted")
+        selected_subject_list = request.form.getlist("subjects")
+        exam_better_json.set(f"users.{name}", selected_subject_list)
+        return redirect(f"/exams/{name}")
+    return render_template(
+        "user-create.html",
+        name=name,
+        available_subjects=exam_better_json.get("subjects"),
+        image_address="images/mountain1.jpg"
+    )
 
 @app.route("/exams/<name>/")
 def exams(name):
-    first_week = ["10/02", "11/02", "12/02", "13/02", "14/02"]
-    second_week = ["24/02", "25/02", "26/02", "27/02", "28/02"]
-    users_weeks = [interactable.get_user(name, week) for week in [first_week, second_week]]
+    date_list = ["10/02", "11/02", "12/02", "13/02", "14/02", "24/02", "25/02", "26/02", "27/02", "28/02"]
+    users_exams = interactable.get_user(name, date_list)
     return render_template(
         "calendar.html",
         name=name,
-        dates=first_week,
-        week_list=users_weeks
+        dates=date_list,
+        day_list=users_exams,
+        image_address="images/trees1.jpg"
     )
