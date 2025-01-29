@@ -20,12 +20,13 @@ def user():
         image_address="images/mountain1.jpg"
     )
 
-@app.route("/user/create/<name>/")
-def create_user(name, methods=('GET', 'POST')):
+@app.route("/user/create/<name>/", methods=("GET", "POST"))
+def create_user(name):
     if request.method == "POST":
         print("posted")
-        selected_subject_list = request.form.getlist("subjects")
+        selected_subject_list = [subject.lower() for subject in request.form.getlist("subjects")]
         exam_better_json.set(f"users.{name}", selected_subject_list)
+        exam_better_json.commit()
         return redirect(f"/exams/{name}")
     return render_template(
         "user-create.html",
