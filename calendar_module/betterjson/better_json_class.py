@@ -5,6 +5,7 @@ from json.decoder import JSONDecodeError
 class BetterJson:
     def __init__(self, json_path: str="", _dict: Dict[Any, Any]={}) -> None:
         assert not ( json_path == "" and _dict == {} )
+        self.path = json_path
 
         if json_path != "":
             try:
@@ -46,29 +47,7 @@ class BetterJson:
     
     def set(self, path: str, value: Any, show_errors: bool=True) -> None:
         self.set_rec(self.data, path, value)
-        # current = self.data
-        # for location in path.split("."):
-        #     try:
-        #         if type(current) == list:
-        #             current = current[int(location)]
-        #         elif type(current) == dict:
-        #             current = current[location]
-        #         else:
-        #             if show_errors:
-        #                 print(f"Err: Type of {current} is invalid, needs to be dict or list.")
-        #             return
-        #     except KeyError:
-        #         if show_errors:
-        #             if type(current) == dict:
-        #                 print(f"Err: Invalid key '{location}', not in ({', '.join(list(current.keys()))})")
-        #             elif type(current) == list:
-        #                 print(f"Err: Invalid index '{location}' not in list {', '.join(current)}")
-        #             else:
-        #                 print(f"Err: {current} is not valid type, cannot index")
-        #         return
-
-        # current = value
-        # return
+        return
     
     def set_rec(self, data: Dict[Any, Any], path: str, value: Any, show_errors: bool=True) -> None:
         current = data
@@ -102,17 +81,15 @@ class BetterJson:
         replace_value = self.get(path)
         replace_value.append(value)
         self.set(path, replace_value)
+    
+    def commit(self) -> None:
+        if self.path == "":
+            return
+        json.dump(self.data, open(self.path, "w"))
 
 
 if __name__ == "__main__":
-    test = BetterJson(_dict={
-        "a": "A",
-        "b": "B",
-        "other": {
-            "A": ["1", "2"]
-        },
-        "aaa": [1, 2, 3]
-    })
+    test = BetterJson("calendar_module/betterjson/test.json")
     print(test.get("other.A"))
     test.set("other.A", {"p": "P", "x": "X"})
     print(test.get("other.A"))
@@ -120,3 +97,4 @@ if __name__ == "__main__":
     print(test.get("other.A"))
     test.append("aaa", 1)
     print(test.get("aaa"))
+    test.commit()
