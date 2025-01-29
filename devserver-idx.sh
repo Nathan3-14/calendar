@@ -1,1 +1,1 @@
-flask --app calendar_app --debug run
+flask --app calendar_app --debug run --host 0.0.0.0
