@@ -22,6 +22,8 @@ def user():
 
 @app.route("/user/create/<name>/", methods=("GET", "POST"))
 def create_user(name):
+    if name in list(exam_better_json.get("users").keys()):
+        return redirect(f"/exams/{name}")
     if request.method == "POST":
         print("posted")
         selected_subject_list = [subject.lower() for subject in request.form.getlist("subjects")]
