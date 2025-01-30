@@ -3,7 +3,14 @@
 {% block styles %}<link rel="stylesheet" href="{{url_for('static', filename='css/calendar.css') }}"> {% endblock %}
 {% block content %}
 <h1>Exam Timetable for {{dates[0]}} -> {{dates[-1]}}</h1>
-<h3>{{name}}</h3>
+{% if name == "all" %}
+<p>Below is a list of all exams, to get exams specific to you, enter your name and press submit!</p>
+<input type="text" id="name" placeholder="Name">
+<button onclick="window.location.href = `/exams/${document.getElementById('name').value}`">Submit</button>
+<br><br><br>
+{% else %}
+<h3>{{name|capitalize}}</h3>
+{% endif %}
 <div class="month" style="grid-template-rows: repeat(1fr, {{day_list|length / 5}});">
     {% for day in day_list %}
     <div class="day">

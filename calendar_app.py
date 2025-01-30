@@ -8,10 +8,7 @@ interactable = cm.ExamInteractable(exam_better_json)
 
 @app.route("/")
 def index():
-    return render_template(
-        "welcome.html",
-        image_address=""
-    )
+    return redirect("/exams/all/")
 
 @app.route("/user/")
 def user():
