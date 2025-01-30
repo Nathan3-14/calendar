@@ -41,6 +41,9 @@ def create_user(name):
 def exams(name):
     date_list = ["10/02", "11/02", "12/02", "13/02", "14/02", "24/02", "25/02", "26/02", "27/02", "28/02"]
     users_exams = interactable.get_user(name, date_list)
+    print(users_exams)
+    if users_exams == ():
+        return redirect(f"/user/create/{name}")
     return render_template(
         "calendar.html",
         name=name,
@@ -48,3 +51,16 @@ def exams(name):
         day_list=users_exams,
         image_address="images/trees1.jpg"
     )
+
+@app.route("/admin/")
+def admin():
+    return render_template(
+        "admin.html",
+        userlist=list(exam_better_json.get("users").keys()),
+        image_address="images/bird1.jpg"
+    )
+
+@app.route("/admin/delete/<name>")
+def admin_delete(name: str):
+    exam_better_json.remove(f"users.{name}")
+    return redirect("/admin/")

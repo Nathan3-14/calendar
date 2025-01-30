@@ -1,0 +1,6 @@
+{
+    "fruit": ["apple", "banana", "lettuce"],
+    "items": {
+        "tomato": {"stock": 2, "sidj": 2}
+    }
+}

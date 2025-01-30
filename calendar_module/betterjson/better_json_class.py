@@ -82,19 +82,32 @@ class BetterJson:
         replace_value.append(value)
         self.set(path, replace_value)
     
+    def remove(self, path) -> None:
+        #TODO rename all variables TODO#
+        remove_path = ".".join(path.split(".")[:-1])
+        remove_name = path.split(".")[-1]
+        remove_value = self.get(remove_path)
+        remove_value = {
+            key: value
+            for key, value in remove_value.items() if key != remove_name
+        }
+        self.set(remove_path, remove_value)
+
+    def pop(self, path):
+        pass
+    #for lists
+    
     def commit(self) -> None:
         if self.path == "":
             return
         json.dump(self.data, open(self.path, "w"))
+    
+    def reload(self) -> None:
+        self.__init__(self.path)
 
 
 if __name__ == "__main__":
     test = BetterJson("calendar_module/betterjson/test.json")
-    print(test.get("other.A"))
-    test.set("other.A", {"p": "P", "x": "X"})
-    print(test.get("other.A"))
-    test.set("other.A.p", "X")
-    print(test.get("other.A"))
-    test.append("aaa", 1)
-    print(test.get("aaa"))
-    test.commit()
+    print(test.get("items.tomato"))
+    test.remove("items.tomato.sidj")
+    print(test.get("items.tomato"))

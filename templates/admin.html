@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Admin {% endblock %}
+{% block styles %}<!--<link rel="stylesheet" href="{{url_for('static', filename='css/calendar.css') }}">-->{% endblock %}
+{% block content %}
+<h1>Admin</h1>
+{% for user in userlist %}
+<form action="delete/{{user}}"
+<input type="submit" value="Delete user '{{user}}'" />
+</form>
+{% endfor %}
+{% endblock %}

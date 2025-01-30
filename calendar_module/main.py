@@ -5,13 +5,13 @@ try:
 except:
     from betterjson import BetterJson
     from exams import Exam
-try:
-    from .rich.table import Table #type:ignore
-    from .rich import print #type:ignore
-except:
-    from rich.table import Table #type:ignore
-    from rich import print #type:ignore
-
+#try:
+#    from .rich.table import Table #type:ignore
+#    from .rich import print #type:ignore
+#except:
+#    from rich.table import Table #type:ignore
+#    from rich import print as rprint#type:ignore
+from .rich.table import Table
 class ExamList:
     def __init__(self, exams: List[Exam], date: str) -> None:
         self.exams = exams
@@ -56,17 +56,21 @@ class ExamInteractable:
         week_table.add_column()
 
         for date in date_list:
+            if self.exam_data.get(f"exams.{date}") == "":
+                continue
             if tag_list == []:
                 current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date)
             else:
                 current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date).get_matching_exams(tag_list)
+            if current_day.exams == {} or current_day.exams == []:
+                return ()
             current_day.init()
 
             days.append(current_day)
-            am = current_day.get_matching_exams(["pm"])
+            am = current_day.get_matching_exams(["am"])
             pm = current_day.get_matching_exams(["pm"])
-            am_display.append("\n".join([exam.name for exam in am]))
-            pm_display.append("\n".join([exam.name for exam in pm]))
+            am_display.append("\n".join([exam.name for exam in current_day.am]))
+            pm_display.append("\n".join([exam.name for exam in current_day.pm]))
                 
             
             week_table.add_column(date)
@@ -76,9 +80,11 @@ class ExamInteractable:
 
         return days if raw else week_table
 
-    def get_user(self, user_name: str, date_list: List[str]) -> Tuple[ExamList, ExamList]:
+    def get_user(self, user_name: str, date_list: List[str]) -> List[ExamList]:
         # print(self.exam_data.get(f"users.{user_name.lower()}"))
-        return self.get_exams_on_dates(date_list, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
+        exams = self.get_exams_on_dates(date_list, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
+        print(exams)
+        return exams
 
 if __name__ == "__main__":
     i_exam = ExamInteractable(BetterJson("exams.json"))
