@@ -3,7 +3,8 @@ import json
 from json.decoder import JSONDecodeError
 
 class BetterJson:
-    def __init__(self, json_path: str="", _dict: Dict[Any, Any]={}) -> None:
+    def __init__(self, json_path: str="", _dict: Dict[Any, Any]={}, auto_commit: bool=False) -> None:
+        self.auto_commit = auto_commit
         assert not ( json_path == "" and _dict == {} )
         self.path = json_path
 
@@ -47,6 +48,8 @@ class BetterJson:
     
     def set(self, path: str, value: Any, show_errors: bool=True) -> None:
         self.set_rec(self.data, path, value)
+        if self.auto_commit:
+            self.commit()
         return
     
     def set_rec(self, data: Dict[Any, Any], path: str, value: Any, show_errors: bool=True) -> None:
@@ -81,6 +84,8 @@ class BetterJson:
         replace_value = self.get(path)
         replace_value.append(value)
         self.set(path, replace_value)
+        if self.auto_commit:
+            self.commit()
     
     def remove(self, path) -> None:
         #TODO rename all variables TODO#
@@ -95,7 +100,6 @@ class BetterJson:
 
     def pop(self, path):
         pass
-    #for lists
     
     def commit(self) -> None:
         if self.path == "":

@@ -5,13 +5,13 @@ try:
 except:
     from betterjson import BetterJson
     from exams import Exam
-#try:
-#    from .rich.table import Table #type:ignore
-#    from .rich import print #type:ignore
-#except:
-#    from rich.table import Table #type:ignore
-#    from rich import print as rprint#type:ignore
-from .rich.table import Table
+try:
+   from .rich.table import Table #type:ignore
+   from .rich import print #type:ignore
+except:
+   from rich.table import Table #type:ignore
+   from rich import print as rprint#type:ignore
+
 class ExamList:
     def __init__(self, exams: List[Exam], date: str) -> None:
         self.exams = exams
@@ -62,8 +62,6 @@ class ExamInteractable:
                 current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date)
             else:
                 current_day = ExamListConstructor(self.exam_data.get(f"exams.{date}"), date).get_matching_exams(tag_list)
-            if current_day.exams == {} or current_day.exams == []:
-                return ()
             current_day.init()
 
             days.append(current_day)
@@ -82,8 +80,9 @@ class ExamInteractable:
 
     def get_user(self, user_name: str, date_list: List[str]) -> List[ExamList]:
         # print(self.exam_data.get(f"users.{user_name.lower()}"))
+        if self.exam_data.get(f"users.{user_name.lower()}") == "":
+            return []
         exams = self.get_exams_on_dates(date_list, self.exam_data.get(f"users.{user_name.lower()}"), raw=True) #type:ignore
-        print(exams)
         return exams
 
 if __name__ == "__main__":
